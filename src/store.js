@@ -46,12 +46,13 @@ if (process.env.IS_BROWSER) {
   enhancer = compose(applyMiddleware(...middleware));
 }
 
+const store = createStore(
+  reducers,
+  preloadedState,
+  enhancer,
+);
+
 const getStore = () => {
-  const store = createStore(
-    reducers,
-    preloadedState,
-    enhancer,
-  );
   mountResponsive(store);
   return store;
 };

@@ -148,7 +148,7 @@ class Editor extends React.Component {
   }
 
 
-  
+
 
   componentWillUnmount() {
     if (document.getElementsByClassName("cometchat_ccmobiletab_redirect") && document.getElementsByClassName("cometchat_ccmobiletab_redirect")[0]) {

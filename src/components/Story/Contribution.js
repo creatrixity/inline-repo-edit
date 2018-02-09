@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from 'antd'; import * as ReactIcon from 'react-icons/lib/md';
 import CategoryIcon from '../CategoriesIcons';
+import { getGithubRepos, setGithubRepos } from '../../actions/projects';
+
+import InlineRepoEdit from '../Story/InlineRepoEdit';
 
 import './Contribution.less';
 
@@ -70,14 +73,20 @@ const modeClass = fm => {
   return "nofull";
 }
 
-const Contribution = ({type, repository, platform, id, showVerified, showPending, showFlagged, showInProgress, fullMode}) => (
+const Contribution = ({type, repository, platform, id, showVerified, showPending, showFlagged, showInProgress, fullMode, post}) => (
   <div className={`Contribution ${type} ${modeClass(fullMode)}`}>
     <span>
-    
+
       <span className={`Contribution__c-${(fullMode === false) ? type : "yes-full"}`}><CategoryIcon from="from-story" type={type}/></span> {categorySlug(type)}
 
       {repository && platform && id ? <span>
-        {' '} <b>&middot;</b> {'  '} <a href={`https://github.com/${repository.full_name}`}><Icon type='github' /></a> <Link to={`/project/${repository.full_name}/${platform}/${id}/all`}>{parsedRepoName(repository.owner.login, repository.name)}</Link>
+        {' '} <b>&middot;</b> {'  '} <a href={`https://github.com/${repository.full_name}`}><Icon type='github' /></a>
+
+        <InlineRepoEdit
+            value={parsedRepoName(repository.owner.login, repository.name)}
+            post={post}
+        />
+
       </span> : null}
     </span>
 

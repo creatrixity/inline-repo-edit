@@ -81,7 +81,7 @@ class Story extends React.Component {
 
   postPreview(body) {
     const MAX_LENGTH = 50;
-    var suffix = "...";
+    var suffix = "..aa.";
     if (!body) return body;
     if (body.length < MAX_LENGTH) return body;
     if (body[MAX_LENGTH-1] === '.') suffix = "..";
@@ -99,7 +99,7 @@ class Story extends React.Component {
     return <span><b>Tags: &nbsp;&nbsp;</b>{ret}, <em>utopian-io</em></span>;
   }
 
-  tagNumber(tagList, number) { 
+  tagNumber(tagList, number) {
     if (!tagList) return <span></span>;
     const indexOfUtopian = tagList.indexOf("utopian-io");
     if (indexOfUtopian > -1) tagList.splice(indexOfUtopian, 1);
@@ -248,6 +248,7 @@ class Story extends React.Component {
             showFlagged={ post.flagged }
             showInProgress = { (!(post.reviewed || post.pending || post.flagged)) }
             fullMode={false}
+            post={post}
           />
 
          {/*postType === 'blog' && <Blog
@@ -341,5 +342,3 @@ class Story extends React.Component {
 }
 
 export default Story;
-
-
