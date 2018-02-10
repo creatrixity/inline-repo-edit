@@ -36,6 +36,7 @@ class Story extends React.Component {
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    moderators: PropTypes.array,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -51,6 +52,7 @@ class Story extends React.Component {
     saving: false,
     ownPost: false,
     sliderMode: 'auto',
+    moderators: [],
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -249,6 +251,8 @@ class Story extends React.Component {
             showInProgress = { (!(post.reviewed || post.pending || post.flagged)) }
             fullMode={false}
             post={post}
+            user={this.props.user}
+            moderators={this.props.moderators}
           />
 
          {/*postType === 'blog' && <Blog

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import getStore from '../../store';
 
-import { editContribution } from '../../actions/contribution';
 import { broadcastComment } from '../../post/Write/editorActions';
 
 import { getGithubRepos, setGithubRepos } from '../../actions/projects';
@@ -75,23 +74,27 @@ class InlineRepoEdit extends React.Component {
             repository: repo
         };
 
-        const { author, permlink, title } = this.post;
+        const { author, body, permlink, title, reward_weight, parent_permlink, parent_author } = this.post;
 
-        console.log({
+        console.log(this.post);
+
+/*        console.log({
           author,
           permlink,
           title,
           metadata
         });
-
-        editContribution(
+*/
+        broadcastComment(
+          parent_author,
+          parent_permlink,
           author,
-          permlink,
           title,
-          metadata
-        )(getStore().dispatch).then((contribution) => {
-          console.log(contribution);
-        });
+          body,
+          metadata,
+          permlink,
+          reward_weight
+        );
 
     }
 

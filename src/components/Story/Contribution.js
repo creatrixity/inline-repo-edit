@@ -6,6 +6,7 @@ import { getGithubRepos, setGithubRepos } from '../../actions/projects';
 
 import InlineRepoEdit from '../Story/InlineRepoEdit';
 
+import * as R from 'ramda';
 import './Contribution.less';
 
 const categorySlug = type => {
@@ -73,8 +74,14 @@ const modeClass = fm => {
   return "nofull";
 }
 
-const Contribution = ({type, repository, platform, id, showVerified, showPending, showFlagged, showInProgress, fullMode, post}) => (
-  <div className={`Contribution ${type} ${modeClass(fullMode)}`}>
+const Contribution = ({type, repository, platform, id, showVerified, showPending, showFlagged, showInProgress, fullMode, post, user, moderators}) => {
+  const isLogged = Object.keys(user).length;
+  const isAuthor = isLogged && user.name === post.author;
+  const inModeratorsObj = R.find(R.propEq('account', user.name))(moderators);
+  const isModerator = isLogged && inModeratorsObj && !isAuthor ? inModeratorsObj : false;
+
+  return (
+    <div className={`Contribution ${type} ${modeClass(fullMode)}`}>
     <span>
 
       <span className={`Contribution__c-${(fullMode === false) ? type : "yes-full"}`}><CategoryIcon from="from-story" type={type}/></span> {categorySlug(type)}
@@ -82,10 +89,14 @@ const Contribution = ({type, repository, platform, id, showVerified, showPending
       {repository && platform && id ? <span>
         {' '} <b>&middot;</b> {'  '} <a href={`https://github.com/${repository.full_name}`}><Icon type='github' /></a>
 
+        { isModerator ?
+
         <InlineRepoEdit
             value={parsedRepoName(repository.owner.login, repository.name)}
             post={post}
-        />
+        /> :
+            parsedRepoName(repository.owner.login, repository.name)
+        }
 
       </span> : null}
     </span>
@@ -111,5 +122,7 @@ const Contribution = ({type, repository, platform, id, showVerified, showPending
     {(!showPending && !showFlagged && !showInProgress && (type.indexOf('task') > -1)) && <span className="markPullRight"><b><Icon type="notification" className=""/></b></span> }
   </div>
 );
+
+}
 
 export default Contribution;

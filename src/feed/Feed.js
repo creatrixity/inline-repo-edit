@@ -40,6 +40,7 @@ import './Feed.less';
     pendingReblogs: getPendingReblogs(state),
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
+    moderators: state.moderators,
     currentMedianHistoryPrice: getCurrentMedianHistoryPrice(state),
     defaultVotePercent: getVotePercent(state),
     followingList: getFollowingList(state),
@@ -243,6 +244,7 @@ export default class Feed extends React.Component {
                   onFollowClick={this.handleFollowClick}
                   onEditClick={this.handleEditClick}
                   sliderMode={sliderMode}
+                  moderators={moderators}
                   rewardFund={rewardFund}
                   currentMedianHistoryPrice={currentMedianHistoryPrice}
                   defaultVotePercent={defaultVotePercent}

@@ -344,7 +344,7 @@ class StoryFull extends React.Component {
       LivejournalShareButton,
       EmailShareButton,
     } = ShareButtons;
-  
+
     const FacebookIcon = generateShareIcon('facebook');
     const TwitterIcon = generateShareIcon('twitter');
     const GooglePlusIcon = generateShareIcon('google');
@@ -359,7 +359,7 @@ class StoryFull extends React.Component {
     const MailruIcon = generateShareIcon('mailru');
     const EmailIcon = generateShareIcon('email');
     const LivejournalIcon = generateShareIcon('livejournal');
-  
+
     const shareTitle = `${post.title} - Utopian.io`
     const shareUrl = "https://utopian.io/" + post.url;
 
@@ -382,9 +382,9 @@ class StoryFull extends React.Component {
             Please make sure this contribution meets the{' '}<Link to="/rules">Utopian Quality Standards</Link>.<br />
           </p> : null}
 
-          {isModerator && alreadyChecked ? 
+          {isModerator && alreadyChecked ?
           <div>
-            {!mobileView ? 
+            {!mobileView ?
             <span>
             <h3><center><Icon type="safety" /> Moderation Control </center></h3>
             {post.reviewed && <p><b>Status: &nbsp;</b> <Icon type="check-circle"/>&nbsp; Accepted <span className="smallBr"><br /></span> <b>Moderated By: &nbsp;</b> <Link className="StoryFull__modlink" to={`/@${post.moderator}`}>@{post.moderator}</Link></p>}
@@ -399,7 +399,7 @@ class StoryFull extends React.Component {
             {post.pending && <p> <Icon type="sync"/>&nbsp; Pending <span className="smallBr"><br/></span> <b>Mod: &nbsp;</b> <Link className="StoryFull__modlink" to={`/@${post.moderator}`}>@{post.moderator}</Link></p>}
             </span>
             }
-          </div> 
+          </div>
           : null}
 
           {isModerator ? <div>
@@ -459,6 +459,9 @@ class StoryFull extends React.Component {
           showFlagged={ post.flagged }
           showInProgress = { (!(post.reviewed || post.pending || post.flagged)) }
           fullMode={true}
+          post={post}
+          user={user}
+          moderators={moderators}
         />
 
         {/*postType === 'blog' && <Blog
@@ -516,7 +519,7 @@ class StoryFull extends React.Component {
           visible={this.state.moderatorCommentModal}
           title='Write a Moderator Comment'
           footer={false}
-          // okText='Done' 
+          // okText='Done'
           onCancel={() => {
             var mark = "verified";
             if (post.reviewed) {
@@ -662,7 +665,7 @@ class StoryFull extends React.Component {
               }
             >
               <span className="StoryFull__header__text__date">
-                <FormattedRelative value={`${post.created}Z`} /> 
+                <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
           </div>
@@ -727,7 +730,7 @@ class StoryFull extends React.Component {
         )}
         <div className="StoryFull__topics">
           <Tooltip title={<span><b>Tags:</b> {this.tagString(tags)}</span>}>
-          {tags && tags.map(tag => 
+          {tags && tags.map(tag =>
           <span>
           <Topic key={tag} name={tag} />&nbsp;
           </span>
