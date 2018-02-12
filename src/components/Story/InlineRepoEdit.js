@@ -76,15 +76,6 @@ class InlineRepoEdit extends React.Component {
 
         const { author, body, permlink, title, reward_weight, parent_permlink, parent_author } = this.post;
 
-        console.log(this.post);
-
-/*        console.log({
-          author,
-          permlink,
-          title,
-          metadata
-        });
-*/
         broadcastComment(
           parent_author,
           parent_permlink,

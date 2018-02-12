@@ -127,6 +127,8 @@ class Story extends React.Component {
       currentMedianHistoryPrice,
       ownPost,
       sliderMode,
+      moderators,
+      categories.
       defaultVotePercent,
       onLikeClick,
       onShareClick,
@@ -251,8 +253,8 @@ class Story extends React.Component {
             showInProgress = { (!(post.reviewed || post.pending || post.flagged)) }
             fullMode={false}
             post={post}
-            user={this.props.user}
-            moderators={this.props.moderators}
+            user={user}
+            moderators={moderators}
           />
 
          {/*postType === 'blog' && <Blog

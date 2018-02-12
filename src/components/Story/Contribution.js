@@ -84,7 +84,19 @@ const Contribution = ({type, repository, platform, id, showVerified, showPending
     <div className={`Contribution ${type} ${modeClass(fullMode)}`}>
     <span>
 
-      <span className={`Contribution__c-${(fullMode === false) ? type : "yes-full"}`}><CategoryIcon from="from-story" type={type}/></span> {categorySlug(type)}
+      <span className={`Contribution__c-${(fullMode === false) ? type : "yes-full"}`}><CategoryIcon from="from-story" type={type}/></span>
+
+      { isModerator ?
+
+          <InlineCategoryEdit
+            value={categorySlug(type)}
+            post={post}
+          /> :
+
+            {categorySlug(type)}
+      }
+
+
 
       {repository && platform && id ? <span>
         {' '} <b>&middot;</b> {'  '} <a href={`https://github.com/${repository.full_name}`}><Icon type='github' /></a>

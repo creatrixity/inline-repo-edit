@@ -41,6 +41,7 @@ import './Feed.less';
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
     moderators: state.moderators,
+    categories: state.categories,
     currentMedianHistoryPrice: getCurrentMedianHistoryPrice(state),
     defaultVotePercent: getVotePercent(state),
     followingList: getFollowingList(state),
@@ -69,6 +70,7 @@ export default class Feed extends React.Component {
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    // moderators: propTypes.arrayOf(PropTypes.string).isRequired,
     currentMedianHistoryPrice: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -190,6 +192,7 @@ export default class Feed extends React.Component {
                 onFollowClick={this.handleFollowClick}
                 onEditClick={this.handleEditClick}
                 sliderMode={sliderMode}
+                moderators={moderators}
                 rewardFund={rewardFund}
                 currentMedianHistoryPrice={currentMedianHistoryPrice}
                 defaultVotePercent={defaultVotePercent}
@@ -217,6 +220,8 @@ export default class Feed extends React.Component {
                   onFollowClick={this.handleFollowClick}
                   onEditClick={this.handleEditClick}
                   sliderMode={sliderMode}
+                  moderators={moderators}
+                  categories={categories}
                   rewardFund={rewardFund}
                   currentMedianHistoryPrice={currentMedianHistoryPrice}
                   defaultVotePercent={defaultVotePercent}
