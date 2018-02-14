@@ -17,7 +17,9 @@ import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 
 import Blog from './Blog';
+import * as R from 'ramda';
 import Contribution from './Contribution';
+import InlineTagEdit from './InlineTagEdit';
 import './Story.less';
 
 @injectIntl
@@ -128,11 +130,15 @@ class Story extends React.Component {
       ownPost,
       sliderMode,
       moderators,
-      categories.
       defaultVotePercent,
       onLikeClick,
       onShareClick,
     } = this.props;
+
+    const isLogged = Object.keys(user).length;
+    const isAuthor = isLogged && user.name === post.author;
+    const inModeratorsObj = R.find(R.propEq('account', user.name))(moderators);
+    const isModerator = isLogged && inModeratorsObj && !isAuthor ? inModeratorsObj : false;
 
     const metaData = post.json_metadata;
     const repository = metaData.repository;
@@ -281,6 +287,8 @@ class Story extends React.Component {
             </Link>
           </div>
           <div className="Story__postTags nomobile">
+			
+			{ isModerator ? (
             <Tooltip title={this.allTags(post.json_metadata.tags)}>
               {(post.json_metadata.tags.length > 1) && <span>
                 <Tag className="Story__postTag">{this.tagNumber(post.json_metadata.tags, 0)}</Tag>
@@ -298,7 +306,14 @@ class Story extends React.Component {
                 <Tag className="Story__postTag">utopian-io</Tag>
               </span>}
             </Tooltip>
+			) : (
+			<InlineTagEdit
+				post={post}
+			/>
+			)}
+			
             {(post.json_metadata.tags.length >= 2) && <span><br/><br/></span>}
+			
           </div>
           <div className="Story__user Story__firstLine">
             <Link to={`/@${post.author}`}>

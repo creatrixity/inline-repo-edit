@@ -3,9 +3,9 @@ import { Icon } from 'antd';
 import Autocomplete from 'react-autocomplete';
 import { connect } from 'react-redux';
 
-import getStore from '../../store';
-
 import { broadcastComment } from '../../post/Write/editorActions';
+
+import getStore from '../../store';
 
 import { getGithubRepos, setGithubRepos } from '../../actions/projects';
 

@@ -149,6 +149,7 @@ export default class Feed extends React.Component {
       votePost,
       saving,
       sliderMode,
+	  moderators,
       rewardFund,
       currentMedianHistoryPrice,
       defaultVotePercent,

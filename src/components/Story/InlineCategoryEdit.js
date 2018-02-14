@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 
-import { connect } from 'react-redux';
-
 import { broadcastComment } from '../../post/Write/editorActions';
-
-@connect(
-  state => ({
-    categories: state.categories,
-  })
-);
 
 class InlineCategoryEdit extends React.Component {
     constructor (props) {
@@ -19,16 +11,30 @@ class InlineCategoryEdit extends React.Component {
         }
 
         this.onCategoryChange = this.onCategoryChange.bind(this);
-
-        console.log(this.state.categories);
+		
     }
 
     onCategoryChange (e) {
+		const value = e.target.value;
+		
         this.setState({
-            category: e.target.value
+            value: e.target.value
         });
+		
+		const type = this.props.types.filter((t) => {
+			return t.type == value;
+		})[0].type;
+		
+		console.log(type);
 
-        const { author, body, permlink, title, reward_weight, parent_permlink, parent_author } = this.post;
+		const jsonMetadata = this.props.post['json_metadata'];
+
+        const metadata = {
+            ...jsonMetadata,
+            type: type
+        };
+
+        const { author, body, permlink, title, reward_weight, parent_permlink, parent_author } = this.props.post;
 
         broadcastComment(
           parent_author,
@@ -45,19 +51,15 @@ class InlineCategoryEdit extends React.Component {
 
     }
 
-    isSelectedCategory (category) {
-        return this.state.value === category ? 'selected' : '';
-    }
-
     render () {
-        const categories = this.state.categories.map((category) => (
-            <option value={category.title} selected={this.isSelectedCategory(category)} key={category.id}>{category.title}</option>
+        const types = this.props.types.map((type, idx) => (
+            <option value={type.type} key={idx}>{type.slug}</option>
         ))
 
         return (
-            <div>
+            <div className="inline-category-edit">
                 <select className="inline-category-edit-select" onChange={ this.onCategoryChange }>
-                    {categories}
+                    {types}
                 </select>
             </div>
         );
