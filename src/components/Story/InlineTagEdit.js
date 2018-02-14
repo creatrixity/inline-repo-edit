@@ -216,7 +216,7 @@ class InlineTagEdit extends React.Component {
         ))
 
         return (
-            <div>
+            <div className="inline-tag-edit-container">
                 <section>
                     <ul>
                         {tags}

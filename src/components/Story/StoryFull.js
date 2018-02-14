@@ -39,6 +39,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Blog from './Blog';
 import Contribution from './Contribution';
 
+import InlineTagEdit from './InlineTagEdit';
+
 import * as R from 'ramda';
 import './StoryFull.less';
 
@@ -729,6 +731,7 @@ class StoryFull extends React.Component {
           />
         )}
         <div className="StoryFull__topics">
+		{isModerator ? (
           <Tooltip title={<span><b>Tags:</b> {this.tagString(tags)}</span>}>
           {tags && tags.map(tag =>
           <span>
@@ -736,6 +739,15 @@ class StoryFull extends React.Component {
           </span>
           )}
           </Tooltip>
+		  ) :
+		  (
+			<InlineTagEdit
+				post={post}
+				tags={tags}
+			/>
+		  )  
+		}
+		
           <b>&nbsp;&nbsp;&middot;&nbsp;&nbsp;</b> <a href="#" onClick={() => {this.setState({shareModal: true})}}><ReactIcon.MdShare /> Share</a>
         </div>
         <Modal
